@@ -1,0 +1,56 @@
+@model Movie
+
+<form method="post">
+    <br>
+    <label asp-for="Category">Category</label>
+    <select asp-for="Category">
+        <option value="Miscellaneous">Miscellaneous</option>
+        <option value="Drama">Drama</option>
+        <option value="Television">Television</option>
+        <option value="HorrorSuspense">Horror/Suspense</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Family">Family</option>
+        <option value="ActionAdventure">Action/Adventure</option>
+        <option value="Other">Other</option>
+    </select>
+    <br>
+    <br>
+    <label asp-for="Title">Title</label>
+    <input asp-for="Title"/>
+    <span asp-validation-for="Title" class="text-danger"></span>
+    <br>
+    <br>
+    <label asp-for="Year">Year</label>
+    <input asp-for="Year"/>
+    <span asp-validation-for="Year" class="text-danger"></span>
+    <br>
+    <br>
+    <label asp-for="Director">Director</label>
+    <input asp-for="Director"/>
+    <span asp-validation-for="Director" class="text-danger"></span>
+    <br>
+    <br>
+    <label asp-for="Rating">Rating</label>
+    <select asp-for="Rating">
+        <option value="G">G</option>
+        <option value="PG">PG</option>
+        <option value="PG13">PG-13</option>
+        <option value="R">R</option>
+    </select>
+    <br>
+    <br>
+    <label asp-for="Edited">Edited</label>
+    <select asp-for="Edited">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select>
+    <br>
+    <br>
+    <label asp-for="LentTo">Lent To:</label>
+    <input asp-for="LentTo"/>
+    <br>
+    <br>
+    <label asp-for="Notes">Notes</label>
+    <input asp-for="Notes"/>
+    <button type="submit">Add Movie</button>
+</form>
