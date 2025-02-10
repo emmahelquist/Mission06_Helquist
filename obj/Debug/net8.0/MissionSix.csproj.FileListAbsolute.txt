@@ -156,3 +156,4 @@
 /Users/test/MissionSix/bin/Debug/net8.0/runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll
 /Users/test/MissionSix/obj/Debug/net8.0/MissionSix.csproj.AssemblyReference.cache
 /Users/test/MissionSix/obj/Debug/net8.0/MissionSix.csproj.Up2Date
+/Users/test/MissionSix/obj/Debug/net8.0/MissionSix.sourcelink.json

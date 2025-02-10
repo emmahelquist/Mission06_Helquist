@@ -2,12 +2,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MissionSix.Models;
 
+// Class that holds all the variables in the movie form
 public class Movie
 {
+    // Primary key 
     [Key]
     public int Id { get; set; }
     
+    // make required and provide error message for the variables needed
     [Required(ErrorMessage = "Please Enter Category")]
+    
     public string Category { get; set; }
     
     [Required(AllowEmptyStrings = false, ErrorMessage = "Please Enter Movie Title")]
@@ -26,6 +30,7 @@ public class Movie
     
     public string? LentTo { get; set; }
     
+    // Set character length to 25 
     [StringLength(25, ErrorMessage = "Notes cannot exceed 25 characters.")]
     public string? Notes { get; set; }
 }

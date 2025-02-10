@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MissionSix.Models;
 
+// Inherits from the DbContext
 public class MovieEntryContext : DbContext
 {
     // Constructor
@@ -9,5 +10,6 @@ public class MovieEntryContext : DbContext
     {
     }
     
+    // Name the database table by creating an instance of the class
     public DbSet<Movie> Movies { get; set; }
 }
