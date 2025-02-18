@@ -20,7 +20,13 @@ public class HomeController : Controller
     // Homepage route
     public IActionResult Index()
     {
-        return View();
+        if (_context.Categories == null)
+        {
+            return NotFound("Database connection failed or Categories table is missing.");
+        }
+
+        var categories = _context.Categories.ToList();
+        return View(categories);
     }
 
     // Get to know joel route
@@ -34,25 +40,20 @@ public class HomeController : Controller
     [HttpGet]
     public IActionResult EnterMovies()
     {
+        ViewBag.Categories = _context.Categories.ToList();
         return View();
     }
-
     
     // Post method for entering movies; sends it to the database
     // Redirect to a confirmation page
     [HttpPost]
     public IActionResult EnterMovies(Movie response)
     {
-        // Make sure response is valid
-        if (!ModelState.IsValid)
-        {
-            return View("EnterMovies", response);
-        }
         
         //add record to the database
         _context.Movies.Add(response);
         //commit changes
         _context.SaveChanges();
-        return View("Confirmation");
+        return View("Confirmation", response);
     }
 }

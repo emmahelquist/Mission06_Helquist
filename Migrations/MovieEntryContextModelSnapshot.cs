@@ -16,15 +16,74 @@ namespace MissionSix.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
 
+            modelBuilder.Entity("MissionSix.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Miscellaneous"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Drama"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Television"
+                        },
+                        new
+                        {
+                            CategoryId = 4,
+                            CategoryName = "Horror/Suspense"
+                        },
+                        new
+                        {
+                            CategoryId = 5,
+                            CategoryName = "Comedy"
+                        },
+                        new
+                        {
+                            CategoryId = 6,
+                            CategoryName = "Family"
+                        },
+                        new
+                        {
+                            CategoryId = 7,
+                            CategoryName = "Action/Adventure"
+                        },
+                        new
+                        {
+                            CategoryId = 8,
+                            CategoryName = "VHS"
+                        });
+                });
+
             modelBuilder.Entity("MissionSix.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CopiedToPlex")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -53,7 +112,20 @@ namespace MissionSix.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("MissionSix.Models.Movie", b =>
+                {
+                    b.HasOne("MissionSix.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }
