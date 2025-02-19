@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MissionSix.Models;
 using SQLitePCL;
 
@@ -20,11 +21,6 @@ public class HomeController : Controller
     // Homepage route
     public IActionResult Index()
     {
-        if (_context.Categories == null)
-        {
-            return NotFound("Database connection failed or Categories table is missing.");
-        }
-
         var categories = _context.Categories.ToList();
         return View(categories);
     }
@@ -55,5 +51,52 @@ public class HomeController : Controller
         //commit changes
         _context.SaveChanges();
         return View("Confirmation", response);
+    }
+
+    [HttpGet]
+    public IActionResult ViewList()
+    {
+        var movies = _context.Movies
+            .Include(x => x.Category)
+            .ToList();
+        
+        return View(movies);
+    }
+
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        var movieToEdit = _context.Movies
+            .Include(x => x.Category)
+            .Single(x => x.MovieId == id);
+        // Pull record
+        ViewBag.Categories = _context.Categories.ToList();
+        return View("EnterMovies", movieToEdit );
+    }
+
+    [HttpPost]
+    public IActionResult Edit(Movie updatedInfo)
+    {
+        _context.Update(updatedInfo);
+        _context.SaveChanges();
+        
+        return RedirectToAction("ViewList");
+    }
+
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+        var recordToDelete = _context.Movies
+            .Single(x => x.MovieId == id);
+        
+        return View(recordToDelete);
+    }
+
+    [HttpPost]
+    public IActionResult Delete(Movie recordToDelete)
+    {
+        _context.Movies.Remove(recordToDelete);
+        _context.SaveChanges();
+        return RedirectToAction("ViewList");
     }
 }

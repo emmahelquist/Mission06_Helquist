@@ -1,0 +1,9 @@
+@{}
+@model Movie
+ @* This view has the user confirm if they want to delete the record *@
+<h1>Are you sure you want to delete @Model.Title from the list?</h1>
+<form method="post">
+    <input type="hidden" asp-for="MovieId" />
+    <button type="submit">Delete</button>
+    <a class="btn btn-info" asp-controller="Home" asp-action="ViewList">Cancel</a>
+</form>
